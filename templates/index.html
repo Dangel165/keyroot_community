@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="hero-content">
+        <h1>Key Root 커뮤니티에 오신 것을 환영합니다</h1>
+        <p>해킹, 보안, 프로그래밍에 관한 모든 것을 공유하는 공간</p>
+        <div class="hero-buttons">
+            {% if not session.username %}
+                <a href="{{ url_for('register') }}" class="btn btn-primary">지금 가입하기</a>
+                <a href="{{ url_for('login') }}" class="btn btn-secondary">로그인</a>
+            {% else %}
+                <a href="{{ url_for('write') }}" class="btn btn-primary">새 글 작성</a>
+                <a href="{{ url_for('board') }}" class="btn btn-secondary">게시판 보기</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="content-section">
+    <div class="section-header">
+        <h2>최근 게시글</h2>
+        <a href="{{ url_for('board') }}" class="view-all">전체보기</a>
+    </div>
+    
+    {% if posts %}
+        <div class="posts-grid">
+            {% for post in posts %}
+                <div class="post-card">
+                    <h3>{{ post[1] }}</h3>
+                    <p class="post-preview">{{ post[2][:100] }}{% if post[2]|length > 100 %}...{% endif %}</p>
+                    <div class="post-meta">
+                        <span class="author">작성자: {{ post[3] }}</span>
+                        <span class="date">{{ post[4] }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="no-content">
+            <p>아직 게시글이 없습니다. 첫 번째 글을 작성해보세요!</p>
+        </div>
+    {% endif %}
+</div>
+
+<div class="features-section">
+    <h2>커뮤니티 기능</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <h3>게시판</h3>
+            <p>다양한 주제로 자유롭게 소통하세요</p>
+        </div>
+        <div class="feature-card">
+            <h3>방명록</h3>
+            <p>간단한 메시지를 남겨보세요</p>
+        </div>
+        <div class="feature-card">
+            <h3>검색</h3>
+            <p>원하는 내용을 빠르게 찾아보세요</p>
+        </div>
+        <div class="feature-card">
+            <h3>보안 연구</h3>
+            <p>윤리적 해킹과 보안 연구를 위한 공간</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

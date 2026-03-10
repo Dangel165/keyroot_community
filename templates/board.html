@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}게시판 - Key Root 커뮤니티{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>게시판</h1>
+    {% if session.username %}
+        <a href="{{ url_for('write') }}" class="btn btn-primary">새 글 작성</a>
+    {% endif %}
+</div>
+
+<div class="board-content">
+    {% if posts %}
+        <div class="posts-list">
+            {% for post in posts %}
+                <div class="post-item">
+                    <div class="post-header">
+                        <h3>{{ post[1] }}</h3>
+                        <div class="post-meta">
+                            <span class="author">{{ post[3] }}</span>
+                            <span class="date">{{ post[4] }}</span>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>{{ post[2] }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="no-content">
+            <p>아직 게시글이 없습니다.</p>
+            {% if session.username %}
+                <a href="{{ url_for('write') }}" class="btn btn-primary">첫 번째 글 작성하기</a>
+            {% else %}
+                <p><a href="{{ url_for('login') }}">로그인</a> 후 글을 작성할 수 있습니다.</p>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

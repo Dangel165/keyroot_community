@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Key Root 커뮤니티{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="{{ url_for('index') }}">Key Root</a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="{{ url_for('index') }}">홈</a></li>
+                    <li><a href="{{ url_for('about') }}">소개</a></li>
+                    <li><a href="{{ url_for('board') }}">게시판</a></li>
+                    <li><a href="{{ url_for('guestbook') }}">방명록</a></li>
+                    {% if session.username %}
+                        <li><a href="{{ url_for('write') }}">글쓰기</a></li>
+                        {% if session.is_admin %}
+                            <li><a href="{{ url_for('admin') }}">관리자</a></li>
+                        {% endif %}
+                        <li><a href="{{ url_for('logout') }}">로그아웃 ({{ session.username }})</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('login') }}">로그인</a></li>
+                        <li><a href="{{ url_for('register') }}">회원가입</a></li>
+                    {% endif %}
+                </ul>
+                <div class="search-box">
+                    <form action="{{ url_for('search') }}" method="GET">
+                        <input type="text" name="q" placeholder="검색..." value="{{ request.args.get('q', '') }}">
+                        <button type="submit">검색</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for message in messages %}
+                        <div class="flash-message">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Key Root 커뮤니티. 모든 권리 보유.</p>
+            <p>해킹과 보안 연구를 위한 교육용 사이트입니다.</p>
+        </div>
+    </footer>
+</body>
+</html>

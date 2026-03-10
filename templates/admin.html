@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}관리자 패널 - Key Root 커뮤니티{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>관리자 패널</h1>
+</div>
+
+<div class="admin-content">
+    <div class="admin-stats">
+        <h3>사이트 통계</h3>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h4>총 사용자 수</h4>
+                <p class="stat-number">{{ user_count }}</p>
+            </div>
+            <div class="stat-card">
+                <h4>총 게시글 수</h4>
+                <p class="stat-number">{{ post_count }}</p>
+            </div>
+            <div class="stat-card">
+                <h4>방명록 메시지</h4>
+                <p class="stat-number">{{ guestbook_count }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-actions">
+        <h3>관리 기능</h3>
+        <div class="actions-grid">
+            <button onclick="loadUsers()" class="btn btn-primary">사용자 목록 보기</button>
+            <button onclick="clearCache()" class="btn btn-secondary">캐시 정리</button>
+            <button onclick="exportData()" class="btn btn-secondary">데이터 내보내기</button>
+            <button onclick="systemInfo()" class="btn btn-secondary">시스템 정보</button>
+        </div>
+    </div>
+
+    <div id="admin-data" class="admin-data">
+    </div>
+</div>
+
+<script>
+function loadUsers() {
+    fetch('/api/users')
+        .then(response => response.json())
+        .then(data => {
+            let html = '<h3>사용자 목록</h3><div class="users-table">';
+            html += '<table><tr><th>ID</th><th>사용자명</th><th>이메일</th><th>가입일</th></tr>';
+            data.forEach(user => {
+                html += `<tr><td>${user.id}</td><td>${user.username}</td><td>${user.email}</td><td>${user.join_date}</td></tr>`;
+            });
+            html += '</table></div>';
+            document.getElementById('admin-data').innerHTML = html;
+        })
+        .catch(error => {
+            document.getElementById('admin-data').innerHTML = '<p>오류가 발생했습니다: ' + error + '</p>';
+        });
+}
+
+function clearCache() {
+    document.getElementById('admin-data').innerHTML = '<p>캐시가 정리되었습니다.</p>';
+}
+
+function exportData() {
+    document.getElementById('admin-data').innerHTML = '<p>데이터 내보내기 기능은 준비 중입니다.</p>';
+}
+
+function systemInfo() {
+    let info = '<h3>시스템 정보</h3>';
+    info += '<p>서버 시간: ' + new Date().toLocaleString() + '</p>';
+    info += '<p>브라우저: ' + navigator.userAgent + '</p>';
+    info += '<p>플랫폼: ' + navigator.platform + '</p>';
+    document.getElementById('admin-data').innerHTML = info;
+}
+</script>
+{% endblock %}
