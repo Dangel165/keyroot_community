@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'none'; object-src 'none';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <title>{% block title %}Key Root 커뮤니티{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -23,6 +27,7 @@
                         {% if session.is_admin %}
                             <li><a href="{{ url_for('admin') }}">관리자</a></li>
                         {% endif %}
+                        <li><a href="{{ url_for('change_password') }}">패스워드 변경</a></li>
                         <li><a href="{{ url_for('logout') }}">로그아웃 ({{ session.username }})</a></li>
                     {% else %}
                         <li><a href="{{ url_for('login') }}">로그인</a></li>

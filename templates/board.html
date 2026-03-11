@@ -16,14 +16,14 @@
             {% for post in posts %}
                 <div class="post-item">
                     <div class="post-header">
-                        <h3>{{ post[1] }}</h3>
+                        <h3>{{ post[1]|safe }}</h3>
                         <div class="post-meta">
                             <span class="author">{{ post[3] }}</span>
                             <span class="date">{{ post[4] }}</span>
                         </div>
                     </div>
                     <div class="post-content">
-                        <p>{{ post[2] }}</p>
+                        <p>{{ post[2]|safe }}</p>
                     </div>
                 </div>
             {% endfor %}
@@ -40,3 +40,12 @@
     {% endif %}
 </div>
 {% endblock %}
+
+
+<strong>{{ message[1]|safe }}</strong> 
+<p>{{ message[2]|safe }}</p>           
+
+
+<div class="message-content">
+    <p>{{ message[2]|safe }}</p>  
+</div>
