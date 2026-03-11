@@ -10,16 +10,16 @@
 
 ### 프론트엔드
 - **마크업**: HTML5
-- **스타일링**: CSS3 (커스텀 다크 테마)
-- **스크립트**: JavaScript (바닐라)
-- **템플릿 엔진**: Jinja2 (Flask 기본)
+- **스타일링**: CSS3 
+- **스크립트**: JavaScript
+- **템플릿 엔진**: Jinja2 
 
 ### 개발 도구
-- **에디터**: 텍스트 에디터
+- **에디터**: VScode
 - **버전 관리**: 로컬 개발
 - **패키지 관리**: pip (Python)
 
-## 프로젝트 구조 설계
+## 프로젝트 구조
 
 ```
 keyroot_community/
@@ -39,4 +39,41 @@ keyroot_community/
 │   ├── write.html        # 글쓰기 페이지
 │   ├── guestbook.html    # 방명록 페이지
 │   ├── search.html       # 검색 결과 페이지
-│   └── admin.html        # 관리자 패널
+│   ├── admin.html        # 관리자 패널
+│   └── change_password.html # 비밀번호 변경 페이지
+├── indiscriminate use/   # 무차별 공격 도구 폴더
+│   ├── indiscriminate use.py   # 무차별 공격 메인 스크립트
+│   ├── indiscriminate use.bat  # 무차별 공격 실행 배치파일
+│   ├── passwords.txt     # 패스워드 사전 파일
+│   ├── usernames.txt     # 사용자명 사전 파일
+│   └── server_config.txt # 대상 서버 설정 파일
+└── 우분투 자동스크립트/    # Ubuntu 자동 배포 스크립트
+    ├── deploy.sh         # 자동 배포 스크립트
+    ├── keyroot.service   # systemd 서비스 파일
+    ├── nginx_config.conf # Nginx 설정 파일
+    ├── requirements_ubuntu.txt # Ubuntu용 의존성
+    └── wsgi.py          # WSGI 애플리케이션 엔트리포인트
+```
+
+## Windows 실행 방법
+   ```bash
+   run.bat
+   ```
+
+### Ubuntu/Linux 자동 배포
+1. 우분투 자동스크립트 폴더로 이동:
+   ```bash
+   cd "우분투 자동스크립트"
+   ```
+
+2. 배포 스크립트 실행 권한 부여:
+   ```bash
+   chmod +x deploy.sh
+   ```
+
+3. 자동 배포 실행:
+   ```bash
+   sudo ./deploy.sh
+   ```
+
+4. 배포 완료 후 서버 IP로 접속
