@@ -42,7 +42,7 @@ def main():
     print()
     print(Fore.CYAN + "╔════════════════════════════════════════════════════════════════╗")
     print(Fore.CYAN + "║                                                                ║")
-    print(Fore.CYAN + "║        파일 기반 무차별 대입 공격 도구                        ║")
+    print(Fore.CYAN + "║        무차별 대입 공격 도구                          ║")
     print(Fore.CYAN + "║                                                                ║")
     print(Fore.CYAN + "╚════════════════════════════════════════════════════════════════╝")
     print()
@@ -138,3 +138,4 @@ if __name__ == "__main__":
     except Exception as e:
         print(Fore.RED + f"\n[!] 오류: {e}")
         print(Fore.YELLOW + "\n서버가 실행 중인지 확인하세요!")
+
